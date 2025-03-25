@@ -13,4 +13,7 @@ class PreferenceManager(context: Context) {
     fun getUser(): Pair<String?, String?> {
         return Pair(prefs.getString("username", null), prefs.getString("password", null))
     }
+    fun clearUser() {
+        prefs.edit().clear().apply()
+    }
 }
