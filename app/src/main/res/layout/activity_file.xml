@@ -14,17 +14,17 @@
         android:id="@+id/btnWriteFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WRITE TO FILE" />
+        android:text="Write to file" />
 
     <Button
         android:id="@+id/btnReadFile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="READ FROM FILE" />
+        android:text="Read from file" />
 
     <Button
         android:id="@+id/btnExit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="EXIT" />
+        android:text="Exit" />
 </LinearLayout>
