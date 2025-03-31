@@ -2,18 +2,26 @@ package com.example.myapplicationlab7
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 
-class PreferenceManager(context: Context) {
-    private val prefs: SharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+class PreferenceManager(private val activity: AppCompatActivity) {
+    private val sharedPref = activity.getPreferences(AppCompatActivity.MODE_PRIVATE)
 
     fun saveUser(username: String, password: String) {
-        prefs.edit().putString("username", username).putString("password", password).apply()
+        with(sharedPref.edit()) {
+            putString("username", username)
+            putString("password", password)
+            apply()
+        }
     }
 
     fun getUser(): Pair<String?, String?> {
-        return Pair(prefs.getString("username", null), prefs.getString("password", null))
+        val username = sharedPref.getString("username", null)
+        val password = sharedPref.getString("password", null)
+        return Pair(username, password)
     }
+
     fun clearUser() {
-        prefs.edit().clear().apply()
+        sharedPref.edit().clear().apply()
     }
 }

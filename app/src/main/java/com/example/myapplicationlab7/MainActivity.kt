@@ -1,5 +1,6 @@
 package com.example.myapplicationlab7
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -49,6 +50,9 @@ class MainActivity : AppCompatActivity() {
 
             if (inputUsername == savedUsername && inputPassword == savedPassword) {
                 Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, FileActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
             }
