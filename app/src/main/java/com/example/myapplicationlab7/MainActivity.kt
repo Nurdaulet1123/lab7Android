@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import org.json.JSONArray
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var preferenceManager: PreferenceManager
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rootLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             val username = etUsername.text.toString().trim()
             val password = etPassword.text.toString().trim()
             if (username.isNotEmpty() && password.isNotEmpty()) {
-                preferenceManager.saveUser(username, password)
+                preferenceManager.addUser(username, password)
                 Toast.makeText(this, "User Registered", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
@@ -44,11 +46,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            val (savedUsername, savedPassword) = preferenceManager.getUser()
             val inputUsername = etUsername.text.toString()
             val inputPassword = etPassword.text.toString()
 
-            if (inputUsername == savedUsername && inputPassword == savedPassword) {
+            if (preferenceManager.isValidUser(inputUsername, inputPassword)) {
                 Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, FileActivity::class.java)
                 startActivity(intent)
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogout.setOnClickListener {
-            preferenceManager.clearUser()
+            preferenceManager.clearUsers()
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
         }
     }

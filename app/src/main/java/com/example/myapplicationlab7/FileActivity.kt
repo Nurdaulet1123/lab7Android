@@ -1,5 +1,6 @@
 package com.example.myapplicationlab7
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -21,6 +22,7 @@ class FileActivity : AppCompatActivity() {
         tvData = findViewById(R.id.tvData)
         val btnWrite = findViewById<Button>(R.id.btnWriteFile)
         val btnRead = findViewById<Button>(R.id.btnReadFile)
+        val btnExit = findViewById<Button>(R.id.btnExit)
 
         btnWrite.setOnClickListener {
             val data = "Hello: ${java.util.Date()}"
@@ -30,6 +32,12 @@ class FileActivity : AppCompatActivity() {
         btnRead.setOnClickListener {
             val data = readFromFile()
             tvData.text = data
+        }
+
+        btnExit.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
