@@ -38,6 +38,24 @@ class PreferenceManager(private val activity: AppCompatActivity) {
         }
         return false
     }
+    fun removeUser(username: String) {
+        val usersJson = sharedPref.getString("users", "[]")
+        val usersArray = JSONArray(usersJson)
+
+        val newArray = JSONArray()
+        for (i in 0 until usersArray.length()) {
+            val user = usersArray.getJSONObject(i)
+            if (user.getString("username") != username) {
+                newArray.put(user)
+            }
+        }
+
+        with(sharedPref.edit()) {
+            putString("users", newArray.toString())
+            apply()
+        }
+    }
+
 
     fun clearUsers() {
         sharedPref.edit().clear().apply()

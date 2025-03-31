@@ -63,5 +63,12 @@ class MainActivity : AppCompatActivity() {
             preferenceManager.clearUsers()
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
         }
+        val btnDeleteAccount = findViewById<Button>(R.id.btnDeleteAccount)
+        btnDeleteAccount.setOnClickListener {
+            val username = etUsername.text.toString()
+            preferenceManager.removeUser(username)
+            Toast.makeText(this, "$username deleted", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
