@@ -23,6 +23,7 @@
 
         <!-- Добавь эту строку, чтобы FileActivity мог открываться -->
         <activity android:name=".FileActivity" android:exported="true" />
+        <activity android:name=".RegisterActivity" android:exported="true" />
 
     </application>
 

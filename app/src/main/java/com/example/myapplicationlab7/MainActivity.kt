@@ -9,8 +9,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import org.json.JSONArray
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var preferenceManager: PreferenceManager
@@ -32,17 +30,10 @@ class MainActivity : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnSignup = findViewById<Button>(R.id.btnSignup)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
-        val btnLogout = findViewById<Button>(R.id.btnLogout)
 
         btnSignup.setOnClickListener {
-            val username = etUsername.text.toString().trim()
-            val password = etPassword.text.toString().trim()
-            if (username.isNotEmpty() && password.isNotEmpty()) {
-                preferenceManager.addUser(username, password)
-                Toast.makeText(this, "User Registered", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-            }
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
         btnLogin.setOnClickListener {
@@ -58,17 +49,5 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
             }
         }
-
-        btnLogout.setOnClickListener {
-            preferenceManager.clearUsers()
-            Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
-        }
-        val btnDeleteAccount = findViewById<Button>(R.id.btnDeleteAccount)
-        btnDeleteAccount.setOnClickListener {
-            val username = etUsername.text.toString()
-            preferenceManager.removeUser(username)
-            Toast.makeText(this, "$username deleted", Toast.LENGTH_SHORT).show()
-        }
-
     }
 }
